@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sushi/l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/puzzles_tile.dart';
+import '../models/puzzle.dart';
+import '../services/app_locale.dart';
+import '../services/puzzle_repository.dart';
 import 'historical_puzzles_details.dart';
 
 class HistoricalPage extends StatefulWidget {
@@ -13,92 +17,7 @@ class HistoricalPage extends StatefulWidget {
 
 class _HistoricalPageState extends State<HistoricalPage>
     with SingleTickerProviderStateMixin {
-  // List of image paths
-  final List<Map<String, String>> historicalPuzzles = [
-    //  1
-    {
-      'path': 'assets/images/danzaDeLaMuerte10.png',
-      'name': 'The Disappearing General',
-      'description':
-          'During the Roman Empire, General Marcus was sent to the northern territories and never returned. Years later, his diary was found, ending abruptly with the words, "I have found the truth." What happened to General Marcus?LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM ',
-      'answer':
-          'General Marcus discovered a betrayal within his ranks. Before he could reveal the traitors, they captured and killed him, ensuring his silence.LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM ',
-    },
-    //  2
-    {
-      'path': 'assets/images/danceOfDeath.png',
-      'name': 'The Pharaoh\'s Secret',
-      'description':
-          'An ancient Egyptian pharaoh was buried with a secret that was supposed to bring prosperity to the kingdom. However, the kingdom fell into ruin after his death. What was the secret?',
-      'answer':
-          'The pharaoh had hidden a map to a vast gold mine. When he died, the secret was lost, and the kingdom couldn\'t sustain its economy without the resource.',
-    },
-    //  3
-    {
-      'path': 'assets/images/danzaDeLaMuerte8.png',
-      'name': 'The Vanished Viking',
-      'description':
-          'A Viking chief led an expedition to a new land but vanished without a trace. Centuries later, an artifact bearing his name is found in a distant desert. How did it get there?',
-      'answer':
-          'The chief was captured by traders from a distant land and sold into slavery. The artifact was a personal item he managed to keep.',
-    },
-    //  4
-    {
-      'path': 'assets/images/danzaDeLaMuerte6.png',
-      'name': 'The Hidden Treasure',
-      'description':
-          'A pirate buried his treasure on an island and left a map with cryptic clues. Despite many attempts, it was never found. What was the key to the map?',
-      'answer':
-          'The key to the map was a specific astronomical event that only occurred every 50 years. Without this timing, the clues made no sense.',
-    },
-    //  5
-    {
-      'path': 'assets/images/danzaDeLaMuerte5.png',
-      'name': 'The Ghost Ship',
-      'description':
-          'In the 17th century, a ship set sail with a precious cargo and vanished. It reappeared decades later, abandoned. What happened to the crew?',
-      'answer':
-          'The crew was stricken by an unknown disease. They abandoned the ship in search of help on a nearby island but succumbed, leaving the ship to drift.',
-    },
-    //  6
-    {
-      'path': 'assets/images/danzaDeLaMuerte4.png',
-      'name': 'The Phantom Knight',
-      'description':
-          'During the Crusades, a knight known for his ruthless tactics disappeared. Years later, his armor was found buried beneath a church, untouched by time. The inscription read, "Condemned by the righteous." What happened to the knight?',
-      'answer':
-          'The knight was betrayed by his fellow crusaders who couldn\'t bear his brutality. They lured him into the church, where he was entombed alive.',
-    },
-    //  7
-    {
-      'path': 'assets/images/danzaDeLaMuerte3.png',
-      'name': 'The Missing Pharaoh',
-      'description':
-          'An Egyptian pharaoh vanished, leaving behind a cryptic message: "The sands reveal all at dusk." His body was never found, and his tomb lay empty. What does the message mean?',
-      'answer':
-          'The pharaoh\'s body was buried in a secret chamber that could only be found when the setting sun cast specific shadows on the sands, revealing the entrance.',
-    },
-    //  8
-    {
-      'path': 'assets/images/danzaDeLaMuerte.png',
-      'name': 'The Cursed Treasure',
-      'description':
-          'A pirate captain buried his treasure on a deserted island. His map, found years later, had the warning: "Greed leads to doom." Many sought the treasure but never returned. Why?',
-      'answer':
-          'The treasure was buried in a cave that flooded with the tide. Those who lingered too long, driven by greed, were trapped and drowned.',
-    },
-    //  9
-    {
-      'path': 'assets/images/archangelMichael.png',
-      'name': 'Historical puzzle 9',
-      'description': 'This is the description of the puzzle 9',
-      'answer': 'answer to the puzzle 9',
-    },
-
-    //'assets/images/danzaDeLaMuerte09.png',
-
-    // Add more image paths as needed
-  ];
+  late final Future<List<Puzzle>> _futurePuzzles;
 
   late AnimationController _controller;
   late Animation<Alignment> _topAlignmentAnimation;
@@ -127,6 +46,18 @@ class _HistoricalPageState extends State<HistoricalPage>
     ]);
 
     _controller.repeat();
+
+    _reloadPuzzles();
+    appLocaleNotifier.addListener(_reloadPuzzles);
+  }
+
+  void _reloadPuzzles() {
+    final localeCode = appLocaleNotifier.value.languageCode;
+    setState(() {
+      _futurePuzzles = PuzzleRepository(
+        localeCode: localeCode.isNotEmpty ? localeCode : 'en',
+      ).loadHistoricalPuzzles();
+    });
   }
 
   Animation<Alignment> _createAnimation(List<Alignment> alignments) {
@@ -146,6 +77,7 @@ class _HistoricalPageState extends State<HistoricalPage>
 
   @override
   void dispose() {
+    appLocaleNotifier.removeListener(_reloadPuzzles);
     _controller.dispose();
     super.dispose();
   }
@@ -154,8 +86,6 @@ class _HistoricalPageState extends State<HistoricalPage>
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(375, 812));
-
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -214,7 +144,7 @@ class _HistoricalPageState extends State<HistoricalPage>
                               fit: BoxFit.cover,
                             ),
                             title: Text(
-                              'Historical Fiction',
+                              AppLocalizations.of(context)!.historicalPageTitle,
                               style: GoogleFonts.pirataOne(
                                 color: const Color.fromARGB(255, 255, 255, 255),
                                 fontSize: 35.sp,
@@ -284,7 +214,7 @@ class _HistoricalPageState extends State<HistoricalPage>
                                       // promo message
 
                                       Text(
-                                        'Echoes of the fallen:                     history\'s darkest hours reimagined.',
+                                        AppLocalizations.of(context)!.historicalPageSubtitle,
                                         style: GoogleFonts.federant(
                                           fontSize: 20.sp,
                                           color: Colors.white,
@@ -323,31 +253,59 @@ class _HistoricalPageState extends State<HistoricalPage>
   // image grid
 
   Widget buildImages() => SliverToBoxAdapter(
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10.w,
-            mainAxisSpacing: 10.h,
-          ),
-          primary: false,
-          shrinkWrap: true,
-          padding: EdgeInsets.all(10.w),
-          itemCount: historicalPuzzles.length,
-          itemBuilder: (context, index) {
-            final historicalPuzzle = historicalPuzzles[index];
-            return PuzzlesTile(
-              imagePath: historicalPuzzle['path']!,
-              puzzleName: historicalPuzzle['name']!,
-              puzzleColor: const Color.fromARGB(175, 244, 67, 54)
-                  .withValues(alpha: 0.7), // Customize the color as needed
-              onTap: () {
-                // Navigate to a new page for each puzzle
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HistoricalPuzzlesDetails(
-                        historicalPuzzle: historicalPuzzle),
+        child: FutureBuilder<List<Puzzle>>(
+          future: _futurePuzzles,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+
+            if (snapshot.hasError) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    AppLocalizations.of(context)!.errorLoadingHistoricalPuzzles(snapshot.error.toString()),
+                    style: const TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
                   ),
+                ),
+              );
+            }
+
+            final puzzles = snapshot.data ?? <Puzzle>[];
+
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10.w,
+                mainAxisSpacing: 10.h,
+              ),
+              primary: false,
+              shrinkWrap: true,
+              padding: EdgeInsets.all(10.w),
+              itemCount: puzzles.length,
+              itemBuilder: (context, index) {
+                final puzzle = puzzles[index];
+                return PuzzlesTile(
+                  imagePath: puzzle.imagePath,
+                  puzzleName: puzzle.title,
+                  puzzleColor: const Color.fromARGB(175, 244, 67, 54)
+                      .withValues(alpha: 0.7),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            HistoricalPuzzlesDetails(puzzle: puzzle),
+                      ),
+                    );
+                  },
                 );
               },
             );

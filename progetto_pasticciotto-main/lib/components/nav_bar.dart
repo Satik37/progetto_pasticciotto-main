@@ -4,13 +4,17 @@ import 'package:google_fonts/google_fonts.dart';
 import '../pages/categories_page.dart';
 import '../pages/credits_and_support_page.dart';
 import '../pages/intro_page.dart';
+import '../pages/language_page.dart';
 import '../pages/settings_page.dart';
+import 'package:sushi/l10n/app_localizations.dart';
 
 class NavDrawer extends StatelessWidget {
   const NavDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return SafeArea(
       child: Container(
         child: ListTileTheme(
@@ -56,7 +60,7 @@ class NavDrawer extends StatelessWidget {
                   ],
                 ),
                 title: Text(
-                  'Home',
+                  l10n.home,
                   style: GoogleFonts.federant(
                     color: const Color.fromARGB(255, 255, 255, 255),
                     fontSize: 25.sp,
@@ -94,7 +98,7 @@ class NavDrawer extends StatelessWidget {
                   ],
                 ),
                 title: Text(
-                  'Genres',
+                  l10n.genres,
                   style: GoogleFonts.federant(
                     color: const Color.fromARGB(255, 255, 255, 255),
                     fontSize: 25.sp,
@@ -133,7 +137,7 @@ class NavDrawer extends StatelessWidget {
                   ],
                 ),
                 title: Text(
-                  'Settings',
+                  l10n.settings,
                   style: GoogleFonts.federant(
                     color: const Color.fromARGB(255, 255, 255, 255),
                     fontSize: 25.sp,
@@ -156,6 +160,44 @@ class NavDrawer extends StatelessWidget {
               ),
 
               SizedBox(height: 10.h),
+              // --- LANGUAGE
+              ListTile(
+                leading: Icon(
+                  Icons.translate,
+                  size: 25.sp,
+                  color: Colors.white,
+                  shadows: const [
+                    Shadow(
+                      blurRadius: 25.0,
+                      color: Color.fromARGB(255, 255, 145, 0),
+                      offset: Offset(2.0, 2.0),
+                    ),
+                  ],
+                ),
+                title: Text(
+                  l10n.language,
+                  style: GoogleFonts.federant(
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    fontSize: 25.sp,
+                    shadows: [
+                      const Shadow(
+                        blurRadius: 25.0,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        offset: Offset(2.0, 2.0),
+                      )
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LanguagePage()),
+                  );
+                },
+              ),
+
+              SizedBox(height: 10.h),
               // --- CREDITS AND SUPPORT
               ListTile(
                 leading: Icon(
@@ -171,7 +213,7 @@ class NavDrawer extends StatelessWidget {
                   ],
                 ),
                 title: Text(
-                  'Credits and Support',
+                  l10n.creditsAndSupport,
                   style: GoogleFonts.federant(
                     color: const Color.fromARGB(255, 255, 255, 255),
                     fontSize: 25.sp,

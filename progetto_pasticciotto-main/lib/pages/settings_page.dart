@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:sushi/l10n/app_localizations.dart';
 import '../components/nav_bar.dart';
 
 class Settings extends StatefulWidget {
@@ -74,6 +75,8 @@ class _SettingsState extends State<Settings>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return AdvancedDrawer(
       backdrop: AnimatedBuilder(
         animation: _controller,
@@ -209,7 +212,7 @@ class _SettingsState extends State<Settings>
                 ),
                 // title
                 Text(
-                  "SETTINGS",
+                  l10n.settings.toUpperCase(),
                   style: GoogleFonts.federant(
                     fontSize: 35.sp,
                     color: const Color.fromARGB(255, 255, 255, 255),

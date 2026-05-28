@@ -1,0 +1,18 @@
+[
+  {
+    "id": "disappearing_general",
+    "categoryId": "historical",
+    "imagePath": "assets/images/danzaDeLaMuerte10.png",
+    "title": "Il Generale Scomparso",
+    "description": "Durante l'Impero Romano, il generale Marco fu inviato nelle terre settentrionali e non fece più ritorno. Anni dopo, il suo diario fu trovato, terminando bruscamente con la frase: 'Ho trovato la verità.' Che cosa gli successe?",
+    "answer": "Marco scoprì una tradimento tra le sue file. Prima di poter rivelare i traditori, lo catturarono e lo uccisero, garantendo il suo silenzio."
+  },
+  {
+    "id": "pharaoh_secret",
+    "categoryId": "historical",
+    "imagePath": "assets/images/danceOfDeath.png",
+    "title": "Il Segreto del Faraone",
+    "description": "Un antico faraone egizio fu sepolto con un segreto che avrebbe dovuto portare prosperità al regno. Tuttavia, il regno cadde in rovina dopo la sua morte. Qual era il segreto?",
+    "answer": "Il faraone aveva nascosto una mappa di una vasta miniera d'oro. Quando morì, il segreto andò perduto e il regno non riuscì più a sostenere la propria economia."
+  }
+]

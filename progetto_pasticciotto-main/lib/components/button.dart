@@ -34,13 +34,6 @@ class MyButton extends StatelessWidget {
               style: GoogleFonts.federant(
                 color: const Color.fromARGB(255, 255, 255, 255),
                 fontSize: 23.sp,
-                shadows: [
-                  const Shadow(
-                    blurRadius: 25.0,
-                    color: Colors.orange,
-                    offset: Offset(2.0, 2.0),
-                  )
-                ],
               ),
             ),
 
@@ -51,13 +44,6 @@ class MyButton extends StatelessWidget {
               Icons.arrow_forward,
               size: 23.sp,
               color: const Color.fromARGB(255, 255, 255, 255),
-              shadows: const [
-                Shadow(
-                  blurRadius: 25.0,
-                  color: Colors.orange,
-                  offset: Offset(2.0, 2.0),
-                ),
-              ],
             ),
           ],
         ),

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "poisoned_drink",
+    "categoryId": "logic",
+    "imagePath": "assets/images/danzaDeLaMuerte10.png",
+    "title": "Bevanda Avvelenata",
+    "description": "Due amici ordinano la stessa bevanda in un ristorante. Uno la beve lentamente e sopravvive; l'altro la beve velocemente e muore. La bevanda era avvelenata. Perché uno è sopravvissuto?",
+    "answer": "Il veleno era nel ghiaccio. L'amico che beveva lentamente ha permesso al ghiaccio di sciogliersi, rilasciando il veleno. L'altro lo beveva troppo in fretta per esserne colpito."
+  },
+  {
+    "id": "silent_witness",
+    "categoryId": "logic",
+    "imagePath": "assets/images/danceOfDeath.png",
+    "title": "Il Testimone Silenzioso",
+    "description": "Un famoso pittore viene trovato morto nel suo studio chiuso a chiave. L'unico modo di entrare o uscire è la porta, e la chiave è nella sua tasca. Sull'asse da disegno c'è un dipinto incompleto di un uomo senza volto. L'apprendista del pittore, senza alibi, sostiene di essere innocente. Quale indizio rivela l'assassino?",
+    "answer": "L'uomo senza volto nel dipinto. Il pittore stava cercando di rivelare l'identità del suo assassino, qualcuno che conosceva ma non poteva nominare apertamente: l'apprendista."
+  }
+]

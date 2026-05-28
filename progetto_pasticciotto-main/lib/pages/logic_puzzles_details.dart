@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sushi/l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sushi/models/puzzle.dart';
 
 class PuzzleDetailPage extends StatefulWidget {
-  final Map<String, String> puzzle;
+  final Puzzle puzzle;
 
   const PuzzleDetailPage({super.key, required this.puzzle});
 
@@ -66,8 +68,6 @@ class _PuzzleDetailPageState extends State<PuzzleDetailPage>
 // --- MAIN BUILDING
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(375, 812));
-
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -88,7 +88,7 @@ class _PuzzleDetailPageState extends State<PuzzleDetailPage>
               ),
             ),
             title: Text(
-              widget.puzzle['name']!,
+              widget.puzzle.title,
               style: GoogleFonts.pirataOne(
                 color: const Color.fromARGB(255, 255, 255, 255),
                 fontSize: 30.sp,
@@ -140,7 +140,7 @@ class _PuzzleDetailPageState extends State<PuzzleDetailPage>
               //   ),
               // ),
               Image.asset(
-                widget.puzzle['path']!,
+                widget.puzzle.imagePath,
                 fit: BoxFit.cover,
                 color: const Color.fromARGB(255, 75, 75, 75),
                 colorBlendMode: BlendMode.darken,
@@ -181,7 +181,7 @@ class _PuzzleDetailPageState extends State<PuzzleDetailPage>
                               ),
                             ),
                             child: Text(
-                              widget.puzzle['description']!,
+                              widget.puzzle.description,
                               style: GoogleFonts.bellefair(
                                 color: const Color.fromARGB(255, 255, 255, 255),
                                 fontSize: 23.sp,
@@ -225,7 +225,7 @@ class _PuzzleDetailPageState extends State<PuzzleDetailPage>
 
                                 children: [
                                   Image.asset(
-                                    widget.puzzle['path']!,
+                                    widget.puzzle.imagePath,
                                     fit: BoxFit.cover,
                                     //color: Colors.purple.withOpacity(0.5),
                                     colorBlendMode: BlendMode.darken,
@@ -277,7 +277,7 @@ class _PuzzleDetailPageState extends State<PuzzleDetailPage>
                                             // ----- Answer title
                                             children: [
                                               Text(
-                                                'Answer:',
+                                                AppLocalizations.of(context)!.answerLabel,
                                                 style: GoogleFonts.federant(
                                                   fontSize: 30.sp,
                                                   color: const Color.fromARGB(
@@ -300,7 +300,7 @@ class _PuzzleDetailPageState extends State<PuzzleDetailPage>
                                               // ----- Detailed answer
 
                                               Text(
-                                                widget.puzzle['answer']!,
+                                                widget.puzzle.answer,
                                                 style: GoogleFonts.bellefair(
                                                   fontSize: 23.sp,
                                                   color: Colors.white,
@@ -349,7 +349,7 @@ class _PuzzleDetailPageState extends State<PuzzleDetailPage>
                                                   elevation: 5.0,
                                                 ),
                                                 child: Text(
-                                                  'Hide',
+                                                  AppLocalizations.of(context)!.hide,
                                                   style: GoogleFonts.federant(
                                                     fontSize: 25.sp,
                                                     color: const Color.fromARGB(
@@ -396,7 +396,7 @@ class _PuzzleDetailPageState extends State<PuzzleDetailPage>
                         ),
                       ),
                       child: Text(
-                        'Show Answer',
+                        AppLocalizations.of(context)!.showAnswer,
                         style: GoogleFonts.federant(
                           fontSize: 25.sp,
                           color: const Color.fromARGB(255, 255, 255, 255),

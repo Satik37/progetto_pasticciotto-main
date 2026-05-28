@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sushi/l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../models/puzzle.dart';
 
 class HistoricalPuzzlesDetails extends StatefulWidget {
-  final Map<String, String> historicalPuzzle;
+  final Puzzle puzzle;
 
-  const HistoricalPuzzlesDetails({super.key, required this.historicalPuzzle});
+  const HistoricalPuzzlesDetails({super.key, required this.puzzle});
 
   // @override
   // Widget build(BuildContext context) {
@@ -71,8 +72,6 @@ class _HistoricalPuzzlesDetails extends State<HistoricalPuzzlesDetails>
 // --- MAIN BUILDING
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(375, 812));
-
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -93,7 +92,7 @@ class _HistoricalPuzzlesDetails extends State<HistoricalPuzzlesDetails>
               ),
             ),
             title: Text(
-              widget.historicalPuzzle['name']!,
+              widget.puzzle.title,
               style: GoogleFonts.pirataOne(
                 color: const Color.fromARGB(255, 255, 255, 255),
                 fontSize: 30.sp,
@@ -146,7 +145,7 @@ class _HistoricalPuzzlesDetails extends State<HistoricalPuzzlesDetails>
               //   ),
               // ),
               Image.asset(
-                widget.historicalPuzzle['path']!,
+                widget.puzzle.imagePath,
                 fit: BoxFit.cover,
                 color: const Color.fromARGB(255, 75, 75, 75),
                 colorBlendMode: BlendMode.darken,
@@ -187,7 +186,7 @@ class _HistoricalPuzzlesDetails extends State<HistoricalPuzzlesDetails>
                               ),
                             ),
                             child: Text(
-                              widget.historicalPuzzle['description']!,
+                              widget.puzzle.description,
                               style: GoogleFonts.bellefair(
                                 color: const Color.fromARGB(255, 255, 255, 255),
                                 fontSize: 23.sp,
@@ -230,7 +229,7 @@ class _HistoricalPuzzlesDetails extends State<HistoricalPuzzlesDetails>
 
                                 children: [
                                   Image.asset(
-                                    widget.historicalPuzzle['path']!,
+                                    widget.puzzle.imagePath,
                                     fit: BoxFit.cover,
                                     //color: Colors.purple.withOpacity(0.5),
                                     colorBlendMode: BlendMode.darken,
@@ -281,7 +280,7 @@ class _HistoricalPuzzlesDetails extends State<HistoricalPuzzlesDetails>
                                             // ----- Answer title
                                             children: [
                                               Text(
-                                                'Answer :',
+                                                AppLocalizations.of(context)!.answerLabel,
                                                 style: GoogleFonts.pirataOne(
                                                   fontSize: 30.sp,
                                                   color: const Color.fromARGB(
@@ -304,8 +303,7 @@ class _HistoricalPuzzlesDetails extends State<HistoricalPuzzlesDetails>
                                               // ----- Detailed answer
 
                                               Text(
-                                                widget.historicalPuzzle[
-                                                    'answer']!,
+                                                widget.puzzle.answer,
                                                 style: GoogleFonts.bellefair(
                                                   fontSize: 23.sp,
                                                   color: Colors.white,
@@ -356,7 +354,7 @@ class _HistoricalPuzzlesDetails extends State<HistoricalPuzzlesDetails>
                                                   elevation: 5.0,
                                                 ),
                                                 child: Text(
-                                                  'Hide',
+                                                  AppLocalizations.of(context)!.hide,
                                                   style: GoogleFonts.federant(
                                                     fontSize: 25.sp,
                                                     color: const Color.fromARGB(
@@ -403,7 +401,7 @@ class _HistoricalPuzzlesDetails extends State<HistoricalPuzzlesDetails>
                         ),
                       ),
                       child: Text(
-                        'Show Answer',
+                        AppLocalizations.of(context)!.showAnswer,
                         style: GoogleFonts.federant(
                           fontSize: 25.sp,
                           color: const Color.fromARGB(255, 255, 255, 255),

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "poisoned_drink",
+    "categoryId": "logic",
+    "imagePath": "assets/images/danzaDeLaMuerte10.png",
+    "title": "Poisoned Drink",
+    "description": "Two friends order the same drink at a restaurant. One drinks it slowly and survives; the other drinks it quickly and dies. The drink was poisoned. Why did one survive?",
+    "answer": "The poison was in the ice. The friend who drank slowly allowed the ice to melt, releasing the poison. The friend who drank quickly did not."
+  },
+  {
+    "id": "silent_witness",
+    "categoryId": "logic",
+    "imagePath": "assets/images/danceOfDeath.png",
+    "title": "The Silent Witness",
+    "description": "A famous painter is found dead in his locked studio. The only way in or out is through the door, and the key is in his pocket. On the easel there is an unfinished painting of a faceless man. The painter's apprentice, who has no alibi, claims innocence. What clue reveals the murderer?",
+    "answer": "The faceless man in the painting. The painter was trying to reveal the identity of his killer, someone he knew but could not name directly – the apprentice."
+  },
+  {
+    "id": "vanishing_neighbor",
+    "categoryId": "logic",
+    "imagePath": "assets/images/danzaDeLaMuerte8.png",
+    "title": "The Vanishing Neighbor",
+    "description": "A woman notices her reclusive neighbor, Mr. Black, has not been seen for days. Inside his home she finds a chair turned over, a broken vase and a note that reads, \"It is behind you.\" Just then, she hears a creak. What does she discover?",
+    "answer": "The note refers to something in the room behind her. Turning around, she discovers a hidden passage leading to a basement where Mr. Black is held captive."
+  },
+  {
+    "id": "cursed_mirror",
+    "categoryId": "logic",
+    "imagePath": "assets/images/danzaDeLaMuerte6.png",
+    "title": "The Cursed Mirror",
+    "description": "A man buys an antique mirror rumored to show the true nature of one's soul. Every morning, he sees a shadowy figure standing behind him in the reflection. Terrified, he smashes the mirror and finds a hidden compartment behind it. What is inside?",
+    "answer": "Inside the compartment there is a diary detailing a murder committed by the mirror's previous owner. The shadowy figure is the victim's ghost, trying to reveal the truth."
+  },
+  {
+    "id": "betrayed_soldier",
+    "categoryId": "logic",
+    "imagePath": "assets/images/danzaDeLaMuerte5.png",
+    "title": "The Betrayed Soldier",
+    "description": "During the war, a soldier receives an anonymous letter warning him about a traitor in his squad. The next day he finds his best friend dead with a note saying, \"Trust no one.\" How can he identify the traitor?",
+    "answer": "The traitor is the author of the anonymous letter. They wanted to create distrust and eliminate the best friend, who likely suspected them."
+  },
+  {
+    "id": "lighthouse_keeper",
+    "categoryId": "logic",
+    "imagePath": "assets/images/danzaDeLaMuerte4.png",
+    "title": "The Vanishing Lighthouse Keeper",
+    "description": "The lighthouse keeper is last seen entering the lighthouse during a storm. When the storm passes, he is gone. The lighthouse is full of lit candles and his diary reads, \"The light must never go out.\" Where did he go?",
+    "answer": "The keeper discovered a hidden passage inside the lighthouse leading to a secret cavern. The lit candles were his way of keeping the light, hinting that he left through the hidden passage."
+  }
+]

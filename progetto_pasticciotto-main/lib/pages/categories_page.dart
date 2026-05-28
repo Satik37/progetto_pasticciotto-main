@@ -3,6 +3,7 @@ import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sushi/components/genre_tile.dart';
+import 'package:sushi/l10n/app_localizations.dart';
 import 'package:sushi/models/genre.dart';
 import 'package:sushi/pages/logic_page.dart';
 import 'package:sushi/pages/historical_page.dart';
@@ -71,20 +72,14 @@ class _CategoriesPageState extends State<CategoriesPage>
     super.dispose();
   }
 
-// Create a list of categories
-  List<Genre> genres = [
-    // Logic and Deduction
-    Genre(name: 'Logic and Deduction', imagePath: 'assets/images/manAndSkull.png'),
-    // Historical Fiction
-    Genre(name: 'Historical Fiction', imagePath: 'assets/images/medievalWriting.png'),
-    // Science
-    // Fantasy
-    // Mystery
-    // Mythology
-    // Horror
-    // Western
-    // Romance
-  ];
+  List<Genre> _buildGenres(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return [
+      Genre(name: l10n.logicPageTitle, imagePath: 'assets/images/manAndSkull.png'),
+      Genre(name: l10n.historicalPageTitle, imagePath: 'assets/images/medievalWriting.png'),
+    ];
+  }
 
 // handle menu button
   void _handleMenuButtonPressed() {
@@ -95,12 +90,14 @@ class _CategoriesPageState extends State<CategoriesPage>
   void navigateToGenre(Genre genre) {
     switch (genre.name) {
       case 'Logic and Deduction':
+      case 'Logica e Deduzione':
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const LogicPage()),
         );
         break;
       case 'Historical Fiction':
+      case 'Narrativa Storica':
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const HistoricalPage()),
@@ -233,6 +230,9 @@ class _CategoriesPageState extends State<CategoriesPage>
   }
 
   Widget _buildMobileLayout() {
+    final l10n = AppLocalizations.of(context)!;
+    final genres = _buildGenres(context);
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -257,7 +257,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                   child:
                       // promo message
                       Text(
-                    'Explore the grim stories of your mind.',
+                    l10n.categoriesSubtitle,
                     style: GoogleFonts.federant(
                       fontSize: 20.sp,
                       color: const Color.fromARGB(255, 215, 215, 215),
@@ -285,7 +285,7 @@ class _CategoriesPageState extends State<CategoriesPage>
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Text(
-              'Genres',
+              l10n.categoriesTitle,
               style: GoogleFonts.pirataOne(
                 fontSize: 33.sp,
                 color: const Color.fromARGB(255, 255, 255, 255),
@@ -333,7 +333,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                 // text
                 Flexible(
                   child: Text(
-                    'Traveling the universe for new tales...',
+                    l10n.categoriesFooter,
                     style: GoogleFonts.federant(
                       fontSize: 20.sp,
                       color: const Color.fromARGB(255, 215, 215, 215),
@@ -356,6 +356,9 @@ class _CategoriesPageState extends State<CategoriesPage>
   }
 
   Widget _buildTabletLayout() {
+    final l10n = AppLocalizations.of(context)!;
+    final genres = _buildGenres(context);
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -382,7 +385,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                     children: [
                       // promo message
                       Text(
-                        'Explore the grim stories of your mind.',
+                        l10n.categoriesSubtitle,
                         style: GoogleFonts.federant(
                           fontSize: 20.sp,
                           color: const Color.fromARGB(255, 215, 215, 215),
@@ -412,7 +415,7 @@ class _CategoriesPageState extends State<CategoriesPage>
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Text(
-              'Genres',
+              l10n.categoriesTitle,
               style: GoogleFonts.pirataOne(
                 fontSize: 32.sp,
                 color: const Color.fromARGB(255, 255, 255, 255),
@@ -463,7 +466,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                 // text
                 Flexible(
                   child: Text(
-                    'Traveling the universe for new tales...',
+                    l10n.categoriesFooter,
                     style: GoogleFonts.federant(
                       fontSize: 20.sp,
                       color: const Color.fromARGB(255, 215, 215, 215),

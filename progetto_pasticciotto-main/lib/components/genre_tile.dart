@@ -18,6 +18,7 @@ class GenreTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        width: 260.w,
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 75, 75, 75),
           borderRadius: BorderRadius.circular(20.r),
@@ -35,18 +36,23 @@ class GenreTile extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            Text(
-              genre.name,
-              style: GoogleFonts.pirataOne(
-                fontSize: 28.sp,
-                color: const Color.fromARGB(255, 255, 255, 255),
-                shadows: [
-                  const Shadow(
-                    blurRadius: 15.0,
-                    color: Color.fromARGB(255, 0, 0, 0),
-                    offset: Offset(2.0, 2.0),
-                  )
-                ],
+            Flexible(
+              child: Text(
+                genre.name,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.pirataOne(
+                  fontSize: 24.sp,
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                  shadows: [
+                    const Shadow(
+                      blurRadius: 15.0,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      offset: Offset(2.0, 2.0),
+                    )
+                  ],
+                ),
               ),
             )
           ],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../components/button.dart';
+import 'package:sushi/l10n/app_localizations.dart';
 import '../components/nav_bar.dart';
 
 class CreditsAndSupport extends StatefulWidget {
@@ -75,6 +75,8 @@ class _CreditsAndSupportState extends State<CreditsAndSupport>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return AdvancedDrawer(
       backdrop: AnimatedBuilder(
         animation: _controller,
@@ -225,7 +227,7 @@ class _CreditsAndSupportState extends State<CreditsAndSupport>
                 ),
 // --- text
                 Text(
-                  "CREDITS AND SUPPORT",
+                  l10n.creditsAndSupport.toUpperCase(),
                   style: GoogleFonts.federant(
                     fontSize: 35.sp,
                     color: const Color.fromARGB(255, 255, 255, 255),

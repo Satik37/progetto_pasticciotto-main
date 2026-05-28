@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sushi/components/button.dart';
+import 'package:sushi/l10n/app_localizations.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil for responsive design
-    ScreenUtil.init(context,
-        designSize: const Size(375, 812), minTextAdapt: true);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 75, 75, 75),
@@ -82,7 +81,7 @@ class IntroPage extends StatelessWidget {
               // --- 3 buttons
               // start
               MyButton(
-                text: "Get Started",
+                text: l10n.getStarted,
                 onTap: () {
                   // go to category page
                   Navigator.pushNamed(context, '/categoriespage');
@@ -90,15 +89,21 @@ class IntroPage extends StatelessWidget {
               ),
               // settings
               MyButton(
-                text: "Settings",
+                text: l10n.settings,
                 onTap: () {
-                  // go to settings page
                   Navigator.pushNamed(context, '/settings');
+                },
+              ),
+              // language
+              MyButton(
+                text: l10n.language,
+                onTap: () {
+                  Navigator.pushNamed(context, '/language');
                 },
               ),
               // credits + donations
               MyButton(
-                text: "Credits and Support",
+                text: l10n.creditsAndSupport,
                 onTap: () {
                   // go to credits page
                   Navigator.pushNamed(context, '/creditsandsupport');

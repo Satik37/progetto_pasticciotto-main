@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sushi/l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sushi/components/puzzles_tile.dart';
 import 'package:sushi/pages/logic_puzzles_details.dart';
+import 'package:sushi/models/puzzle.dart';
+import 'package:sushi/services/app_locale.dart';
+import 'package:sushi/services/puzzle_repository.dart';
 
 class LogicPage extends StatefulWidget {
   const LogicPage({super.key});
@@ -14,88 +18,7 @@ class LogicPage extends StatefulWidget {
 class _LogicPageState extends State<LogicPage>
     with SingleTickerProviderStateMixin {
   // List of puzzles
-  final List<Map<String, String>> puzzles = [
-    //  1
-    {
-      'path': 'assets/images/danzaDeLaMuerte10.png',
-      'name': 'Poisoned Drink',
-      'description':
-          'Two friends order the same drink at a restaurant. One drinks it slowly and survives; the other drinks it quickly and dies. The drink was poisoned. Why did one survive?',
-      'answer':
-          'The poison was in the ice. The friend who drank slowly allowed the ice to melt, releasing the poison. The friend who drank quickly did not. LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM ',
-    },
-    //  2
-    {
-      'path': 'assets/images/danceOfDeath.png',
-      'name': 'The Silent Witness',
-      'description':
-          'A famous painter was found dead in his locked studio. The only way in or out was through the door, and the key was found in his pocket. On the easel was an unfinished painting depicting a faceless man. The painter\'s apprentice, who had no alibi, claimed innocence. What clue reveals the murderer?',
-      'answer':
-          'The faceless man in the painting. The painter was trying to reveal the identity of his killer, who was someone he knew but couldn\'t explicitly name – the apprentice.',
-    },
-    //  3
-    {
-      'path': 'assets/images/danzaDeLaMuerte8.png',
-      'name': 'The Vanishing Neighbor',
-      'description':
-          'A woman noticed her reclusive neighbor, Mr. Black, hadn\'t been seen for days. She entered his home and found a disturbing scene: a chair turned over, a broken vase, and a note that read, "It\'s behind you." Just then, she heard a creak. What did she discover?',
-      'answer':
-          'The woman realized the note referred to something in the room behind her. Turning around, she discovered a hidden passage leading to a basement where Mr. Black was held captive.',
-    },
-    //  4
-    {
-      'path': 'assets/images/danzaDeLaMuerte6.png',
-      'name': 'The Cursed Mirror',
-      'description':
-          'A man bought an antique mirror rumored to show the true nature of one\'s soul. Every morning, he noticed the reflection showing something ominous: a shadowy figure behind him. Fearing for his life, he smashed the mirror, only to find a hidden compartment behind it. What was inside?',
-      'answer':
-          'Inside the compartment was a diary detailing a murder committed by the mirror\'s previous owner. The shadowy figure was the ghost of the victim, trying to reveal the truth.',
-    },
-    //  5
-    {
-      'path': 'assets/images/danzaDeLaMuerte5.png',
-      'name': 'The Betrayed Soldier',
-      'description':
-          'During the war, a soldier received an anonymous letter warning of a traitor among his squad. The next day, he found his best friend dead with a note saying, "Trust no one." How can the soldier identify the traitor?',
-      'answer':
-          'The traitor is the person who wrote the anonymous letter. They sought to create distrust and eliminate the best friend, who likely suspected them.',
-    },
-    //  6
-    {
-      'path': 'assets/images/danzaDeLaMuerte4.png',
-      'name': 'The Vanishing Lighthouse Keeper',
-      'description':
-          'The lighthouse keeper was last seen entering the lighthouse during a storm. When the storm passed, he was gone, leaving behind a lighthouse full of lit candles and a diary entry, "The light must never go out." Where did he go?',
-      'answer':
-          'The keeper discovered a hidden passage within the lighthouse that led to a secret cavern. The lit candles were his way of ensuring the light remained, hinting at his knowledge of the passage.',
-    },
-    //  7
-    {
-      'path': 'assets/images/danzaDeLaMuerte3.png',
-      'name': 'Logical puzzle 7',
-      'description': 'This is the description of the puzzle 7',
-      'answer': 'answer to the puzzle 7',
-    },
-    //  8
-    {
-      'path': 'assets/images/danzaDeLaMuerte.png',
-      'name': 'Logical puzzle 8',
-      'description': 'This is the description of the puzzle 8',
-      'answer': 'answer to the puzzle 8',
-    },
-    //  9
-    {
-      'path': 'assets/images/archangelMichael.png',
-      'name': 'Logical puzzle 9',
-      'description': 'This is the description of the puzzle 9',
-      'answer': 'answer to the puzzle 9',
-    },
-
-    //'assets/images/danzaDeLaMuerte09.png',
-
-    // Add more image paths as needed
-  ];
-
+  late final Future<List<Puzzle>> _futurePuzzles;
   late AnimationController _controller;
   late Animation<Alignment> _topAlignmentAnimation;
   late Animation<Alignment> _bottomAlignmentAnimation;
@@ -121,8 +44,19 @@ class _LogicPageState extends State<LogicPage>
       //Alignment.topLeft,
       //Alignment.topRight,
     ]);
-
     _controller.repeat();
+
+    _reloadPuzzles();
+    appLocaleNotifier.addListener(_reloadPuzzles);
+  }
+
+  void _reloadPuzzles() {
+    final localeCode = appLocaleNotifier.value.languageCode;
+    setState(() {
+      _futurePuzzles = PuzzleRepository(
+        localeCode: localeCode.isNotEmpty ? localeCode : 'en',
+      ).loadLogicPuzzles();
+    });
   }
 
   Animation<Alignment> _createAnimation(List<Alignment> alignments) {
@@ -142,6 +76,7 @@ class _LogicPageState extends State<LogicPage>
 
   @override
   void dispose() {
+    appLocaleNotifier.removeListener(_reloadPuzzles);
     _controller.dispose();
     super.dispose();
   }
@@ -150,8 +85,6 @@ class _LogicPageState extends State<LogicPage>
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(375, 812));
-
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -210,7 +143,7 @@ class _LogicPageState extends State<LogicPage>
                               fit: BoxFit.cover,
                             ),
                             title: Text(
-                              'Logic and Deduction',
+                              AppLocalizations.of(context)!.logicPageTitle,
                               style: GoogleFonts.pirataOne(
                                 color: const Color.fromARGB(255, 255, 255, 255),
                                 fontSize: 35.sp,
@@ -284,7 +217,7 @@ class _LogicPageState extends State<LogicPage>
                                       // promo message
 
                                       Text(
-                                        'Venture into the abyss :        where logic meets lunacy.',
+                                        AppLocalizations.of(context)!.logicPageSubtitle,
                                         style: GoogleFonts.federant(
                                           fontSize: 20.sp,
                                           color: Colors.white,
@@ -322,31 +255,58 @@ class _LogicPageState extends State<LogicPage>
   }
   // image grid
 
-  Widget buildImages() => SliverToBoxAdapter(
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10.w,
-            mainAxisSpacing: 10.h,
-          ),
-          primary: false,
-          shrinkWrap: true,
-          padding: EdgeInsets.all(10.w),
-          itemCount: puzzles.length,
-          itemBuilder: (context, index) {
-            final puzzle = puzzles[index];
-            return PuzzlesTile(
-              imagePath: puzzle['path']!,
-              puzzleName: puzzle['name']!,
-              puzzleColor: const Color.fromARGB(
-                  175, 33, 150, 243), // Customize the color as needed
-              onTap: () {
-                // Navigate to a new page for each puzzle
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PuzzleDetailPage(puzzle: puzzle),
+    Widget buildImages() => SliverToBoxAdapter(
+        child: FutureBuilder<List<Puzzle>>(
+          future: _futurePuzzles,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+
+            if (snapshot.hasError) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    AppLocalizations.of(context)!.errorLoadingPuzzles(snapshot.error.toString()),
+                    style: const TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
                   ),
+                ),
+              );
+            }
+
+            final puzzles = snapshot.data ?? <Puzzle>[];
+
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10.w,
+                mainAxisSpacing: 10.h,
+              ),
+              primary: false,
+              shrinkWrap: true,
+              padding: EdgeInsets.all(10.w),
+              itemCount: puzzles.length,
+              itemBuilder: (context, index) {
+                final puzzle = puzzles[index];
+                return PuzzlesTile(
+                  imagePath: puzzle.imagePath,
+                  puzzleName: puzzle.title,
+                  puzzleColor: const Color.fromARGB(175, 33, 150, 243),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PuzzleDetailPage(puzzle: puzzle),
+                      ),
+                    );
+                  },
                 );
               },
             );

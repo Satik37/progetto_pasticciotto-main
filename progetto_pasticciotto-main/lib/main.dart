@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sushi/l10n/app_localizations.dart';
+import 'package:sushi/services/app_locale.dart';
 import 'pages/credits_and_support_page.dart';
 import 'pages/settings_page.dart';
 import 'pages/historical_page.dart';
 import 'pages/intro_page.dart';
 import 'pages/categories_page.dart';
+import 'pages/language_page.dart';
 import 'pages/logic_page.dart';
 
 void main() {
@@ -16,28 +19,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 690), // Set the design size of your app
-      minTextAdapt:
-          true, // Ensures that the text size is adapted to the screen size
-      splitScreenMode: true, // Supports split-screen mode
-      builder: (context, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Progetto Pasticciotto',
-          home: const IntroPage(),
-          routes: {
-            '/intropage': (context) => const IntroPage(),
-            '/categoriespage': (context) => const CategoriesPage(),
-            '/settings': (context) => const Settings(),
-            '/creditsandsupport': (context) => const CreditsAndSupport(),
-            '/logicpage': (context) => const LogicPage(),
-            '/historicalpage': (context) => const HistoricalPage(),
-          },
-          builder: (context, widget) {
-            // Initialize ScreenUtil
-            ScreenUtil.init(context);
-            return widget!;
+    return ValueListenableBuilder<Locale>(
+      valueListenable: appLocaleNotifier,
+      builder: (context, locale, _) {
+        return ScreenUtilInit(
+          designSize: const Size(360, 690),
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (context, child) {
+            return MaterialApp(
+              locale: locale,
+              debugShowCheckedModeBanner: false,
+              title: 'Progetto Pasticciotto',
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              home: const IntroPage(),
+              routes: {
+                '/intropage': (context) => const IntroPage(),
+                '/categoriespage': (context) => const CategoriesPage(),
+                '/settings': (context) => const Settings(),
+                '/language': (context) => const LanguagePage(),
+                '/creditsandsupport': (context) => const CreditsAndSupport(),
+                '/logicpage': (context) => const LogicPage(),
+                '/historicalpage': (context) => const HistoricalPage(),
+              },
+              builder: (context, widget) {
+                ScreenUtil.init(context);
+                return widget!;
+              },
+            );
           },
         );
       },
