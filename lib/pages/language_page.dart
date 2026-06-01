@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sushi/components/button.dart';
 import 'package:sushi/components/nav_bar.dart';
+import 'package:sushi/components/animated_background.dart';
 import 'package:sushi/l10n/app_localizations.dart';
 import 'package:sushi/services/app_locale.dart';
 
@@ -14,51 +15,16 @@ class LanguagePage extends StatefulWidget {
   State<LanguagePage> createState() => _LanguagePageState();
 }
 
-class _LanguagePageState extends State<LanguagePage>
-    with SingleTickerProviderStateMixin {
+class _LanguagePageState extends State<LanguagePage> {
   final _advancedDrawerController = AdvancedDrawerController();
-
-  late final AnimationController _controller;
-  late final Animation<Alignment> _topAlignmentAnimation;
-  late final Animation<Alignment> _bottomAlignmentAnimation;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 30),
-    );
-    _topAlignmentAnimation = _createAnimation([
-      Alignment.topLeft,
-      Alignment.topRight,
-    ]);
-    _bottomAlignmentAnimation = _createAnimation([
-      Alignment.bottomRight,
-      Alignment.bottomLeft,
-    ]);
-    _controller.repeat();
-  }
-
-  Animation<Alignment> _createAnimation(List<Alignment> alignments) {
-    return TweenSequence<Alignment>(
-      alignments
-          .asMap()
-          .entries
-          .map((entry) => TweenSequenceItem(
-                tween: Tween(
-                  begin: entry.value,
-                  end: alignments[(entry.key + 1) % alignments.length],
-                ),
-                weight: 1,
-              ))
-          .toList(),
-    ).animate(_controller);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -74,27 +40,15 @@ class _LanguagePageState extends State<LanguagePage>
       valueListenable: appLocaleNotifier,
       builder: (context, currentLocale, _) {
         return AdvancedDrawer(
-          backdrop: AnimatedBuilder(
-            animation: _controller,
-            builder: (context, child) {
-              return Container(
-                width: double.infinity,
-                height: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: _topAlignmentAnimation.value,
-                    end: _bottomAlignmentAnimation.value,
-                    colors: const [
-                      Color.fromARGB(255, 50, 50, 50),
-                      Color.fromARGB(255, 75, 75, 75),
-                      Color.fromARGB(255, 100, 100, 100),
-                      Color.fromARGB(255, 140, 100, 65),
-                      Color.fromARGB(255, 255, 145, 0),
-                    ],
-                  ),
-                ),
-              );
-            },
+          backdrop: AnimatedBackground(
+            colors: const [
+              Color.fromARGB(255, 50, 50, 50),
+              Color.fromARGB(255, 75, 75, 75),
+              Color.fromARGB(255, 100, 100, 100),
+              Color.fromARGB(255, 140, 100, 65),
+              Color.fromARGB(255, 255, 145, 0),
+            ],
+            particleColor: const Color.fromARGB(255, 255, 145, 0),
           ),
           controller: _advancedDrawerController,
           openScale: 0.85,
@@ -105,23 +59,11 @@ class _LanguagePageState extends State<LanguagePage>
           childDecoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(25.r)),
           ),
-          child: AnimatedBuilder(
-            animation: _controller,
-            builder: (context, child) {
-              return Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: _topAlignmentAnimation.value,
-                    end: _bottomAlignmentAnimation.value,
-                    colors: const [
-                      Color.fromARGB(255, 150, 150, 150),
-                      Color.fromARGB(255, 50, 50, 50),
-                    ],
-                  ),
-                ),
-                child: child,
-              );
-            },
+          child: AnimatedBackground(
+            colors: const [
+              Color.fromARGB(255, 150, 150, 150),
+              Color.fromARGB(255, 50, 50, 50),
+            ],
             child: Scaffold(
               backgroundColor: Colors.transparent,
               appBar: AppBar(
@@ -250,12 +192,14 @@ class _LanguageOptionCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: selected
               ? const Color.fromARGB(255, 255, 145, 0).withValues(alpha: 0.25)
-              : const Color.fromARGB(255, 255, 255, 255).withValues(alpha: 0.08),
+              : const Color.fromARGB(255, 255, 255, 255)
+                  .withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(18.r),
           border: Border.all(
             color: selected
                 ? const Color.fromARGB(255, 255, 217, 0)
-                : const Color.fromARGB(255, 255, 255, 255).withValues(alpha: 0.25),
+                : const Color.fromARGB(255, 255, 255, 255)
+                    .withValues(alpha: 0.25),
             width: selected ? 2 : 1,
           ),
         ),

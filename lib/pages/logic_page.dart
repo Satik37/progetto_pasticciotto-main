@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sushi/l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sushi/components/puzzles_tile.dart';
+import 'package:sushi/components/animated_background.dart';
 import 'package:sushi/pages/logic_puzzles_details.dart';
 import 'package:sushi/models/puzzle.dart';
 import 'package:sushi/services/app_locale.dart';
@@ -15,37 +16,13 @@ class LogicPage extends StatefulWidget {
   State<LogicPage> createState() => _LogicPageState();
 }
 
-class _LogicPageState extends State<LogicPage>
-    with SingleTickerProviderStateMixin {
+class _LogicPageState extends State<LogicPage> {
   // List of puzzles
   late final Future<List<Puzzle>> _futurePuzzles;
-  late AnimationController _controller;
-  late Animation<Alignment> _topAlignmentAnimation;
-  late Animation<Alignment> _bottomAlignmentAnimation;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 10),
-    );
-    // first color animation
-    _topAlignmentAnimation = _createAnimation([
-      Alignment.topLeft,
-      Alignment.topRight,
-      //Alignment.bottomRight,
-      //Alignment.bottomLeft,
-    ]);
-
-    _bottomAlignmentAnimation = _createAnimation([
-      Alignment.bottomRight,
-      Alignment.bottomLeft,
-      //Alignment.topLeft,
-      //Alignment.topRight,
-    ]);
-    _controller.repeat();
-
     _reloadPuzzles();
     appLocaleNotifier.addListener(_reloadPuzzles);
   }
@@ -59,25 +36,9 @@ class _LogicPageState extends State<LogicPage>
     });
   }
 
-  Animation<Alignment> _createAnimation(List<Alignment> alignments) {
-    return TweenSequence<Alignment>(
-      alignments
-          .asMap()
-          .entries
-          .map((entry) => TweenSequenceItem(
-                tween: Tween(
-                    begin: entry.value,
-                    end: alignments[(entry.key + 1) % alignments.length]),
-                weight: 1,
-              ))
-          .toList(),
-    ).animate(_controller);
-  }
-
   @override
   void dispose() {
     appLocaleNotifier.removeListener(_reloadPuzzles);
-    _controller.dispose();
     super.dispose();
   }
 
@@ -85,177 +46,166 @@ class _LogicPageState extends State<LogicPage>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: _topAlignmentAnimation.value,
-              end: _bottomAlignmentAnimation.value,
-              colors: const [
-                Color.fromARGB(255, 33, 149, 243),
-                Color.fromARGB(255, 40, 100, 145),
-                Color.fromARGB(255, 50, 50, 50),
-              ],
-            ),
-          ),
-          // ----- Body
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Stack(
-              fit: StackFit.expand,
+    return AnimatedBackground(
+      colors: const [
+        Color.fromARGB(255, 33, 149, 243),
+        Color.fromARGB(255, 40, 100, 145),
+        Color.fromARGB(255, 50, 50, 50),
+      ],
+      particleColor: const Color.fromARGB(255, 33, 149, 243),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          fit: StackFit.expand,
 
-              // ----- Add background image
-              children: [
-                //   Image.asset(
-                //     'assets/images/skull18.png',
-                //     fit: BoxFit.cover,
-                //   ),
+          // ----- Add background image
+          children: [
+            //   Image.asset(
+            //     'assets/images/skull18.png',
+            //     fit: BoxFit.cover,
+            //   ),
 
-                // ----- sliver app bar
+            // ----- sliver app bar
 
-                CustomScrollView(
-                  slivers: [
-                    SliverAppBar(
-                      backgroundColor: Colors.transparent,
-                      expandedHeight: 200.h,
-                      floating: true,
-                      pinned: true,
-                      flexibleSpace: Stack(
-                        children: [
-                          // Custom gradient background for SliverAppBar
-                          Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: [
-                                  Color.fromARGB(250, 33, 149, 243),
-                                  Color.fromARGB(250, 50, 50, 50),
-                                ],
-                              ),
-                            ),
+            CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  backgroundColor: Colors.transparent,
+                  expandedHeight: 200.h,
+                  floating: true,
+                  pinned: true,
+                  flexibleSpace: Stack(
+                    children: [
+                      // Custom gradient background for SliverAppBar
+                      Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [
+                              Color.fromARGB(250, 33, 149, 243),
+                              Color.fromARGB(250, 50, 50, 50),
+                            ],
                           ),
-                          FlexibleSpaceBar(
-                            background: Image.asset(
-                              'assets/images/devilDrugs.png',
-                              fit: BoxFit.cover,
-                            ),
-                            title: Text(
-                              AppLocalizations.of(context)!.logicPageTitle,
-                              style: GoogleFonts.pirataOne(
-                                color: const Color.fromARGB(255, 255, 255, 255),
-                                fontSize: 35.sp,
-                                shadows: [
-                                  const Shadow(
-                                    blurRadius: 25.0,
-                                    color: Color.fromARGB(255, 33, 149, 243),
-                                    offset: Offset(2.0, 2.0),
-                                  )
-                                ],
-                              ),
-                            ),
-                            centerTitle: true,
-                          ),
-                        ],
+                        ),
                       ),
+                      FlexibleSpaceBar(
+                        background: Image.asset(
+                          'assets/images/devilDrugs.png',
+                          fit: BoxFit.cover,
+                        ),
+                        title: Text(
+                          AppLocalizations.of(context)!.logicPageTitle,
+                          style: GoogleFonts.pirataOne(
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                            fontSize: 35.sp,
+                            shadows: [
+                              const Shadow(
+                                blurRadius: 25.0,
+                                color: Color.fromARGB(255, 33, 149, 243),
+                                offset: Offset(2.0, 2.0),
+                              )
+                            ],
+                          ),
+                        ),
+                        centerTitle: true,
+                      ),
+                    ],
+                  ),
 
-                      // Arrow to move back to the previous page
-                      leading: IconButton(
-                        icon: Icon(
-                          Icons.arrow_back,
-                          size: 35.sp,
-                          color: Colors.white,
-                          shadows: const [
-                            Shadow(
-                              blurRadius: 25.0,
-                              color: Color.fromARGB(255, 33, 149, 243),
-                              offset: Offset(2.0, 2.0),
+                  // Arrow to move back to the previous page
+                  leading: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      size: 35.sp,
+                      color: Colors.white,
+                      shadows: const [
+                        Shadow(
+                          blurRadius: 25.0,
+                          color: Color.fromARGB(255, 33, 149, 243),
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+
+                // end of bar
+
+                // sliver list
+
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      // promo banner
+
+                      Container(
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(155, 50, 50, 50),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: const Color.fromARGB(255, 33, 150, 243),
+                            width: 2,
+                          ),
+                        ),
+                        margin: EdgeInsets.only(
+                          left: 25.w,
+                          right: 25.w,
+                          bottom: 0,
+                          top: 20.h,
+                        ),
+                        padding: EdgeInsets.all(10.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // promo message
+
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .logicPageSubtitle,
+                                    style: GoogleFonts.federant(
+                                      fontSize: 20.sp,
+                                      color: Colors.white,
+                                      shadows: [
+                                        const Shadow(
+                                          blurRadius: 25.0,
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                          offset: Offset(2.0, 2.0),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 5.h),
+                                ],
+                              ),
                             ),
+
+                            // Add more content widgets here
                           ],
                         ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
                       ),
-                    ),
-
-                    // end of bar
-
-                    // sliver list
-
-                    SliverList(
-                      delegate: SliverChildListDelegate(
-                        [
-                          // promo banner
-
-                          Container(
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(155, 50, 50, 50),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: const Color.fromARGB(255, 33, 150, 243),
-                                width: 2,
-                              ),
-                            ),
-                            margin: EdgeInsets.only(
-                              left: 25.w,
-                              right: 25.w,
-                              bottom: 0,
-                              top: 20.h,
-                            ),
-                            padding: EdgeInsets.all(10.w),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      // promo message
-
-                                      Text(
-                                        AppLocalizations.of(context)!.logicPageSubtitle,
-                                        style: GoogleFonts.federant(
-                                          fontSize: 20.sp,
-                                          color: Colors.white,
-                                          shadows: [
-                                            const Shadow(
-                                              blurRadius: 25.0,
-                                              color:
-                                                  Color.fromARGB(255, 0, 0, 0),
-                                              offset: Offset(2.0, 2.0),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(height: 5.h),
-                                    ],
-                                  ),
-                                ),
-
-                                // Add more content widgets here
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    buildImages(),
-                  ],
+                    ],
+                  ),
                 ),
+                buildImages(),
               ],
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
+
   // image grid
 
-    Widget buildImages() => SliverToBoxAdapter(
+  Widget buildImages() => SliverToBoxAdapter(
         child: FutureBuilder<List<Puzzle>>(
           future: _futurePuzzles,
           builder: (context, snapshot) {
@@ -273,7 +223,8 @@ class _LogicPageState extends State<LogicPage>
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    AppLocalizations.of(context)!.errorLoadingPuzzles(snapshot.error.toString()),
+                    AppLocalizations.of(context)!
+                        .errorLoadingPuzzles(snapshot.error.toString()),
                     style: const TextStyle(color: Colors.white),
                     textAlign: TextAlign.center,
                   ),
@@ -313,5 +264,4 @@ class _LogicPageState extends State<LogicPage>
           },
         ),
       );
-  // something else
 }

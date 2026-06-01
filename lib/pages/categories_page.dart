@@ -3,6 +3,7 @@ import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sushi/components/genre_tile.dart';
+import 'package:sushi/components/animated_background.dart';
 import 'package:sushi/l10n/app_localizations.dart';
 import 'package:sushi/models/genre.dart';
 import 'package:sushi/pages/logic_page.dart';
@@ -17,58 +18,11 @@ class CategoriesPage extends StatefulWidget {
 }
 
 // --- advanced drawer
-class _CategoriesPageState extends State<CategoriesPage>
-    with SingleTickerProviderStateMixin {
+class _CategoriesPageState extends State<CategoriesPage> {
   final _advancedDrawerController = AdvancedDrawerController();
-
-// --- animations
-  late AnimationController _controller;
-  late Animation<Alignment> _topAlignmentAnimation;
-  late Animation<Alignment> _bottomAlignmentAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 10),
-    );
-    // --- first color animation
-    _topAlignmentAnimation = _createAnimation([
-      Alignment.topLeft,
-      Alignment.topRight,
-      //Alignment.bottomRight,
-      //Alignment.bottomLeft,
-    ]);
-    // --- second color animation
-    _bottomAlignmentAnimation = _createAnimation([
-      Alignment.bottomRight,
-      Alignment.bottomLeft,
-      //Alignment.topLeft,
-      //Alignment.topRight,
-    ]);
-
-    _controller.repeat();
-  }
-
-  Animation<Alignment> _createAnimation(List<Alignment> alignments) {
-    return TweenSequence<Alignment>(
-      alignments
-          .asMap()
-          .entries
-          .map((entry) => TweenSequenceItem(
-                tween: Tween(
-                    begin: entry.value,
-                    end: alignments[(entry.key + 1) % alignments.length]),
-                weight: 1,
-              ))
-          .toList(),
-    ).animate(_controller);
-  }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -76,8 +30,12 @@ class _CategoriesPageState extends State<CategoriesPage>
     final l10n = AppLocalizations.of(context)!;
 
     return [
-      Genre(name: l10n.logicPageTitle, imagePath: 'assets/images/manAndSkull.png'),
-      Genre(name: l10n.historicalPageTitle, imagePath: 'assets/images/medievalWriting.png'),
+      Genre(
+          name: l10n.logicPageTitle,
+          imagePath: 'assets/images/manAndSkull.png'),
+      Genre(
+          name: l10n.historicalPageTitle,
+          imagePath: 'assets/images/medievalWriting.png'),
     ];
   }
 
@@ -112,28 +70,16 @@ class _CategoriesPageState extends State<CategoriesPage>
   @override
   Widget build(BuildContext context) {
     return AdvancedDrawer(
-      backdrop: AnimatedBuilder(
-        animation: _controller,
-        builder: (context, child) {
-          return Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: _topAlignmentAnimation.value,
-                end: _bottomAlignmentAnimation.value,
-                colors: const [
-                  Color.fromARGB(255, 50, 50, 50),
-                  Color.fromARGB(255, 75, 75, 75),
-                  Color.fromARGB(255, 100, 100, 100),
-                  Color.fromARGB(255, 125, 125, 125),
-                  Color.fromARGB(255, 165, 125, 85),
-                  Color.fromARGB(255, 255, 145, 0),
-                ],
-              ),
-            ),
-          );
-        },
+      backdrop: AnimatedBackground(
+        colors: const [
+          Color.fromARGB(255, 50, 50, 50),
+          Color.fromARGB(255, 75, 75, 75),
+          Color.fromARGB(255, 100, 100, 100),
+          Color.fromARGB(255, 125, 125, 125),
+          Color.fromARGB(255, 165, 125, 85),
+          Color.fromARGB(255, 255, 145, 0),
+        ],
+        particleColor: const Color.fromARGB(255, 255, 145, 0),
       ),
       controller: _advancedDrawerController,
       openScale: 0.85,
@@ -148,23 +94,11 @@ class _CategoriesPageState extends State<CategoriesPage>
         ),
       ),
       drawer: const NavDrawer(),
-      child: AnimatedBuilder(
-        animation: _controller,
-        builder: (context, child) {
-          return Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: _topAlignmentAnimation.value,
-                end: _bottomAlignmentAnimation.value,
-                colors: const [
-                  Color.fromARGB(255, 150, 150, 150),
-                  Color.fromARGB(255, 50, 50, 50),
-                ],
-              ),
-            ),
-            child: child,
-          );
-        },
+      child: AnimatedBackground(
+        colors: const [
+          Color.fromARGB(255, 150, 150, 150),
+          Color.fromARGB(255, 50, 50, 50),
+        ],
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: PreferredSize(
@@ -180,9 +114,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                     return AnimatedSwitcher(
                       duration: const Duration(milliseconds: 450),
                       child: Icon(
-                        value.visible
-                            ? Icons.close
-                            : Icons.menu,
+                        value.visible ? Icons.close : Icons.menu,
                         key: ValueKey<bool>(value.visible),
                         size: 23.w,
                         color: const Color.fromARGB(255, 255, 255, 255),

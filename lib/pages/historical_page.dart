@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sushi/l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/puzzles_tile.dart';
+import '../components/animated_background.dart';
 import '../models/puzzle.dart';
 import '../services/app_locale.dart';
 import '../services/puzzle_repository.dart';
@@ -15,38 +16,12 @@ class HistoricalPage extends StatefulWidget {
   State<HistoricalPage> createState() => _HistoricalPageState();
 }
 
-class _HistoricalPageState extends State<HistoricalPage>
-    with SingleTickerProviderStateMixin {
+class _HistoricalPageState extends State<HistoricalPage> {
   late final Future<List<Puzzle>> _futurePuzzles;
-
-  late AnimationController _controller;
-  late Animation<Alignment> _topAlignmentAnimation;
-  late Animation<Alignment> _bottomAlignmentAnimation;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 10),
-    );
-    // first color animation
-    _topAlignmentAnimation = _createAnimation([
-      Alignment.topLeft,
-      Alignment.topRight,
-      //Alignment.bottomRight,
-      //Alignment.bottomLeft,
-    ]);
-
-    _bottomAlignmentAnimation = _createAnimation([
-      Alignment.bottomRight,
-      Alignment.bottomLeft,
-      //Alignment.topLeft,
-      //Alignment.topRight,
-    ]);
-
-    _controller.repeat();
-
     _reloadPuzzles();
     appLocaleNotifier.addListener(_reloadPuzzles);
   }
@@ -60,25 +35,9 @@ class _HistoricalPageState extends State<HistoricalPage>
     });
   }
 
-  Animation<Alignment> _createAnimation(List<Alignment> alignments) {
-    return TweenSequence<Alignment>(
-      alignments
-          .asMap()
-          .entries
-          .map((entry) => TweenSequenceItem(
-                tween: Tween(
-                    begin: entry.value,
-                    end: alignments[(entry.key + 1) % alignments.length]),
-                weight: 1,
-              ))
-          .toList(),
-    ).animate(_controller);
-  }
-
   @override
   void dispose() {
     appLocaleNotifier.removeListener(_reloadPuzzles);
-    _controller.dispose();
     super.dispose();
   }
 
@@ -86,168 +45,156 @@ class _HistoricalPageState extends State<HistoricalPage>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: _topAlignmentAnimation.value,
-              end: _bottomAlignmentAnimation.value,
-              colors: const [
-                Color.fromARGB(255, 244, 67, 54),
-                Color.fromARGB(255, 152, 58, 52),
-                Color.fromARGB(255, 50, 50, 50),
-              ],
-            ),
-          ),
-          // ----- Body
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Stack(
-              fit: StackFit.expand,
+    return AnimatedBackground(
+      colors: const [
+        Color.fromARGB(255, 244, 67, 54),
+        Color.fromARGB(255, 152, 58, 52),
+        Color.fromARGB(255, 50, 50, 50),
+      ],
+      particleColor: const Color.fromARGB(255, 244, 67, 54),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          fit: StackFit.expand,
 
-              // ----- Add background image
-              children: [
-                //   Image.asset(
-                //     'assets/images/skull18.png',
-                //     fit: BoxFit.cover,
-                //   ),
+          // ----- Add background image
+          children: [
+            //   Image.asset(
+            //     'assets/images/skull18.png',
+            //     fit: BoxFit.cover,
+            //   ),
 
-                // ----- sliver app bar
+            // ----- sliver app bar
 
-                CustomScrollView(
-                  slivers: [
-                    SliverAppBar(
-                      backgroundColor: Colors.transparent,
-                      expandedHeight: 200.h,
-                      floating: true,
-                      pinned: true,
-                      flexibleSpace: Stack(
-                        children: [
-                          // Custom gradient background for SliverAppBar
-                          Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: [
-                                  Color.fromARGB(255, 244, 67, 54),
-                                  Color.fromARGB(255, 50, 50, 50),
-                                ],
-                              ),
-                            ),
+            CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  backgroundColor: Colors.transparent,
+                  expandedHeight: 200.h,
+                  floating: true,
+                  pinned: true,
+                  flexibleSpace: Stack(
+                    children: [
+                      // Custom gradient background for SliverAppBar
+                      Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [
+                              Color.fromARGB(255, 244, 67, 54),
+                              Color.fromARGB(255, 50, 50, 50),
+                            ],
                           ),
-                          FlexibleSpaceBar(
-                            background: Image.asset(
-                              'assets/images/knightHorse.png',
-                              fit: BoxFit.cover,
-                            ),
-                            title: Text(
-                              AppLocalizations.of(context)!.historicalPageTitle,
-                              style: GoogleFonts.pirataOne(
-                                color: const Color.fromARGB(255, 255, 255, 255),
-                                fontSize: 35.sp,
-                                shadows: [
-                                  const Shadow(
-                                    blurRadius: 25.0,
-                                    color: Color.fromARGB(255, 244, 67, 54),
-                                    offset: Offset(2.0, 2.0),
-                                  )
-                                ],
-                              ),
-                            ),
-                            centerTitle: true,
-                          ),
-                        ],
+                        ),
                       ),
+                      FlexibleSpaceBar(
+                        background: Image.asset(
+                          'assets/images/knightHorse.png',
+                          fit: BoxFit.cover,
+                        ),
+                        title: Text(
+                          AppLocalizations.of(context)!.historicalPageTitle,
+                          style: GoogleFonts.pirataOne(
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                            fontSize: 35.sp,
+                            shadows: [
+                              const Shadow(
+                                blurRadius: 25.0,
+                                color: Color.fromARGB(255, 244, 67, 54),
+                                offset: Offset(2.0, 2.0),
+                              )
+                            ],
+                          ),
+                        ),
+                        centerTitle: true,
+                      ),
+                    ],
+                  ),
 
-                      // Arrow to move back to the previous page
-                      leading: IconButton(
-                        icon: Icon(
-                          Icons.arrow_back,
-                          size: 35.sp,
-                          color: const Color.fromARGB(255, 255, 255, 255),
-                          shadows: const [
-                            Shadow(
-                              blurRadius: 25.0,
-                              color: Color.fromARGB(255, 244, 67, 54),
-                              offset: Offset(2.0, 2.0),
-                            )
+                  // Arrow to move back to the previous page
+                  leading: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      size: 35.sp,
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                      shadows: const [
+                        Shadow(
+                          blurRadius: 25.0,
+                          color: Color.fromARGB(255, 244, 67, 54),
+                          offset: Offset(2.0, 2.0),
+                        )
+                      ],
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+
+                // end of bar
+
+                // sliver list
+
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      // promo banner
+
+                      Container(
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(155, 50, 50, 50),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: const Color.fromARGB(255, 244, 67, 54),
+                            width: 2.w,
+                          ),
+                        ),
+                        margin: EdgeInsets.only(
+                            left: 25.w, right: 25.w, bottom: 0, top: 20.h),
+                        padding: EdgeInsets.all(10.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // promo message
+
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .historicalPageSubtitle,
+                                    style: GoogleFonts.federant(
+                                      fontSize: 20.sp,
+                                      color: Colors.white,
+                                      shadows: [
+                                        const Shadow(
+                                          blurRadius: 25.0,
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                          offset: Offset(2.0, 2.0),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 5.h),
+                                ],
+                              ),
+                            ),
+
+                            // add more widgets here
                           ],
                         ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
                       ),
-                    ),
-
-                    // end of bar
-
-                    // sliver list
-
-                    SliverList(
-                      delegate: SliverChildListDelegate(
-                        [
-                          // promo banner
-
-                          Container(
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(155, 50, 50, 50),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: const Color.fromARGB(255, 244, 67, 54),
-                                width: 2.w,
-                              ),
-                            ),
-                            margin: EdgeInsets.only(
-                                left: 25.w, right: 25.w, bottom: 0, top: 20.h),
-                            padding: EdgeInsets.all(10.w),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      // promo message
-
-                                      Text(
-                                        AppLocalizations.of(context)!.historicalPageSubtitle,
-                                        style: GoogleFonts.federant(
-                                          fontSize: 20.sp,
-                                          color: Colors.white,
-                                          shadows: [
-                                            const Shadow(
-                                              blurRadius: 25.0,
-                                              color:
-                                                  Color.fromARGB(255, 0, 0, 0),
-                                              offset: Offset(2.0, 2.0),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(height: 5.h),
-                                    ],
-                                  ),
-                                ),
-
-                                // add more widgets here
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    buildImages(),
-                  ],
+                    ],
+                  ),
                 ),
+                buildImages(),
               ],
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
   // image grid
@@ -270,7 +217,8 @@ class _HistoricalPageState extends State<HistoricalPage>
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    AppLocalizations.of(context)!.errorLoadingHistoricalPuzzles(snapshot.error.toString()),
+                    AppLocalizations.of(context)!.errorLoadingHistoricalPuzzles(
+                        snapshot.error.toString()),
                     style: const TextStyle(color: Colors.white),
                     textAlign: TextAlign.center,
                   ),
@@ -312,5 +260,4 @@ class _HistoricalPageState extends State<HistoricalPage>
           },
         ),
       );
-  // something else
 }
