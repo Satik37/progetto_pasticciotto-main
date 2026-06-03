@@ -149,6 +149,7 @@ Good screenshots:
 
 ## Credits
 
-- Illustrations are based on various dark / historical themes (internal assets).  
+- Illustrations are based on various dark / historical themes (internal assets).
 - Fonts provided via [Google Fonts](https://fonts.google.com/).  
 - Built with [Flutter](https://docs.flutter.dev/).
+- Stories by Saturnas Costantini Miliauskas & Marina
