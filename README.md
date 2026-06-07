@@ -1,74 +1,106 @@
-# Progetto Pasticciotto – Dark Situational Puzzles
+# Noctis Aenigmata
 
-Progetto Pasticciotto is a small Flutter mobile game inspired by short horror stories:
-short, twisted situational puzzles designed to be played in a group.  
-One player reads the story, the others try to deduce what really happened by asking yes/no questions.
+```
+ ███▄    █  ▒█████   ▄████▄  ▄▄▄█████▓ ██▓  ██████     ▄▄▄      ▓█████  ███▄    █  ██▓  ▄████  ███▄ ▄███▓ ▄▄▄     ▄▄▄█████▓ ▄▄▄      
+ ██ ▀█   █ ▒██▒  ██▒▒██▀ ▀█  ▓  ██▒ ▓▒▓██▒▒██    ▒    ▒████▄    ▓█   ▀  ██ ▀█   █ ▓██▒ ██▒ ▀█▒▓██▒▀█▀ ██▒▒████▄   ▓  ██▒ ▓▒▒████▄    
+▓██  ▀█ ██▒▒██░  ██▒▒▓█    ▄ ▒ ▓██░ ▒░▒██▒░ ▓██▄      ▒██  ▀█▄  ▒███   ▓██  ▀█ ██▒▒██▒▒██░▄▄▄░▓██    ▓██░▒██  ▀█▄ ▒ ▓██░ ▒░▒██  ▀█▄  
+▓██▒  ▐▌██▒▒██   ██░▒▓▓▄ ▄██▒░ ▓██▓ ░ ░██░  ▒   ██▒   ░██▄▄▄▄██ ▒▓█  ▄ ▓██▒  ▐▌██▒░██░░▓█  ██▓▒██    ▒██ ░██▄▄▄▄██░ ▓██▓ ░ ░██▄▄▄▄██ 
+▒██░   ▓██░░ ████▓▒░▒ ▓███▀ ░  ▒██▒ ░ ░██░▒██████▒▒    ▓█   ▓██▒░▒████▒▒██░   ▓██░░██░░▒▓███▀▒▒██▒   ░██▒ ▓█   ▓██▒ ▒██▒ ░  ▓█   ▓██▒
+░ ▒░   ▒ ▒ ░ ▒░▒░▒░ ░ ░▒ ▒  ░  ▒ ░░   ░▓  ▒ ▒▓▒ ▒ ░    ▒▒   ▓▒█░░░ ▒░ ░░ ▒░   ▒ ▒ ░▓   ░▒   ▒ ░ ▒░   ░  ░ ▒▒   ▓▒█░ ▒ ░░    ▒▒   ▓▒█░
+░ ░░   ░ ▒░  ░ ▒ ▒░   ░  ▒       ░     ▒ ░░ ░▒  ░ ░     ▒   ▒▒ ░ ░ ░  ░░ ░░   ░ ▒░ ▒ ░  ░   ░ ░  ░      ░  ▒   ▒▒ ░   ░      ▒   ▒▒ ░
+   ░   ░ ░ ░ ░ ░ ▒  ░          ░       ▒ ░░  ░  ░       ░   ▒      ░      ░   ░ ░  ▒ ░░ ░   ░ ░      ░     ░   ▒    ░        ░   ▒   
+         ░     ░ ░  ░ ░                ░        ░           ░  ░   ░  ░         ░  ░        ░        ░         ░  ░              ░  ░
+                    ░                                                                                                                
+```
 
-> This project is to showcases my Flutter, UI, and app-architecture skills.
+Noctis Aenigmata is a small Flutter mobile game inspired by dark situational puzzles and short horror stories.
 
----
+It started from a very personal idea: creating something I could actually play with my girlfriend, who loves writing and inventing stories. Because of that, the project became both a technical exercise and a small creative space built around a real person, not just around the idea of “making a portfolio project”.
+
+## How the game works
+
+The game is designed for 2 or more players.
+
+- One player selects a puzzle and reads the hidden solution.
+- The other players try to reconstruct what happened by asking yes-or-no questions.
+- When they feel ready, they give their final explanation and check the real answer.
+
+The structure is simple on purpose. The goal is not mechanical complexity, but atmosphere, tension, and curiosity.
 
 ## Features
 
-- **Curated dark situational puzzles** with atmospheric illustrations  
-- **Category-based navigation** (e.g. Logic & Deduction, Historical – WIP)  
-- **Puzzle detail view** with full story and a revealable answer dialog  
-- **Responsive layout** using `flutter_screenutil`, tuned for mobile screens  
-- **Typography and visuals** built with Google Fonts and custom imagery  
-- **Data-driven content**: puzzles loaded from JSON instead of hard-coded in widgets (easy to extend and localize)
+- Dark situational puzzles inspired by short horror-story logic
+- Category-based navigation
+- Puzzle detail view with a dedicated answer reveal dialog
+- Custom dark UI with gradients, subtle motion, and animated particles
+- Responsive layout tuned for mobile screens
+- JSON-driven content, so puzzles are easier to extend and maintain
+- Italian and English language support
+- Project structure prepared for future multilingual expansion
+- Sidebar navigation for extra sections like credits, language selection, and settings
 
----
+## Visual direction
 
-## Tech Stack
+I wanted the app to feel dark and recognisable without becoming visually heavy.  
+The UI uses a small and coherent colour palette, with each main section having its own visual identity. This makes navigation feel a bit more intuitive and also helps give each category its own tone.
 
-- **Framework:** Flutter  
-- **Language:** Dart  
-- **UI & UX:** Material, custom gradients, Google Fonts, responsive layout  
+Because the gameplay is naturally quite static, I added subtle animated particles and soft background movement to make the app feel more alive without turning it into noise. I also chose dedicated imagery for the puzzles to give each scenario a little more personality.
+
+## Tech stack
+
+- **Framework:** Flutter
+- **Language:** Dart
+- **Data layer:** JSON
+- **UI:** Material components, custom gradients, dark theme, responsive layout
 - **Packages:**
-  - `flutter_screenutil` – responsive sizing and typography
-  - `google_fonts` – custom fonts
-  - `flutter_advanced_drawer` – navigation drawer (used in other sections of the app)
+  - `flutter_screenutil` for responsive sizing
+  - `google_fonts` for typography
+  - `flutter_advanced_drawer` for navigation in secondary sections
 
----
+## Project structure
 
-## Architecture Overview
+The app is intentionally structured in a simple but clean way, separating content, models, loading logic, and UI.
 
-The app is structured to separate **data**, **models**, and **presentation**:
+### Main pieces
 
 - `lib/models/puzzle.dart`  
-  Defines the `Puzzle` model with id, category, image path, title, description and answer, plus JSON serialization helpers.
+  Defines the puzzle model, including fields such as id, category, image path, title, description, and answer, plus JSON serialization helpers.
 
-- `assets/data/logic_puzzles_en.json`  
-  Contains the Logic & Deduction puzzles in JSON format (one array of puzzle objects).  
-  This makes it easy to:
-  - add more puzzles,
-  - support multiple languages with `logic_puzzles_it.json`, `logic_puzzles_xx.json`, etc.,
-  - keep UI widgets clean and focused on presentation.
+- `assets/data/*****_puzzles_en.json`  
+  Stores puzzle content as JSON data instead of hardcoding it inside widgets. This makes it easier to add puzzles, support multiple languages, and keep the UI layer cleaner.
 
 - `lib/services/puzzle_repository.dart`  
-  Loads puzzle data from JSON assets using `rootBundle` and converts them into `Puzzle` instances.
+  Loads puzzle data from JSON assets and maps it into `Puzzle` objects.
 
-- `lib/pages/logic_page.dart`  
-  Displays the Logic & Deduction category, loading puzzles via `PuzzleRepository` and showing them in a grid.
+- `lib/pages/*****_page.dart`  
+  Displays a puzzle category and shows the available puzzles in a grid.
 
-- `lib/pages/logic_puzzles_details.dart`  
-  Shows a single puzzle in detail, with the full story and a dialog to reveal the answer.
+- `lib/pages/*****_puzzles_details.dart`  
+  Shows a single puzzle in detail and handles the answer reveal flow.
 
 - `lib/components/`  
-  Shared UI components such as `PuzzlesTile`, buttons, navigation bar, etc.
+  Contains reusable UI pieces such as puzzle tiles, buttons, navigation elements, and shared visual components.
 
-This structure is intentionally simple but clean, reflecting a pragmatic approach suitable for a small game and for an entry-level portfolio project.
+## Current status
 
----
+This project is still in progress.
 
-## Getting Started
+At the moment I’m mainly working on:
+- improving the visual polish of the interface
+- adding more puzzle content
+- completing extra screens like settings
+- refining the overall flow of the game
+
+Part of what matters to me about this project is exactly that it is still evolving. It started from a real idea, for a real person, and that gives it a kind of honesty that I want to preserve while improving the technical side.
+
+## Getting started
 
 ### Prerequisites
 
-- Flutter SDK installed and configured  
-- A running emulator or a physical device connected  
+- Flutter SDK installed and configured
+- An emulator or a physical device connected
 
-For details, see the official Flutter documentation.  
+For setup details, see the official [Flutter documentation](https://docs.flutter.dev/).
 
 ### Install dependencies
 
@@ -82,74 +114,40 @@ flutter pub get
 flutter run
 ```
 
-The default entry point is `lib/main.dart`, which starts the intro screen and then lets you navigate into the puzzle categories.
+The default entry point is `lib/main.dart`.
 
----
+## Localization and content
 
-## Data & Localization (WIP)
+Puzzle content is currently loaded from JSON files, which makes the project much easier to extend.
 
-Currently, the Logic & Deduction puzzles are loaded from:
+Right now the structure already supports the idea of adding more files such as:
+- `logic_puzzles_it.json`
+- `logic_puzzles_en.json`
+- future language-based datasets
 
-- `assets/data/logic_puzzles_en.json`
+This means new content and future localization work can be added without rewriting the UI layer.
 
-The app is designed so that adding support for other languages only requires:
+## Roadmap
 
-1. Creating additional JSON files, e.g.  
-   - `assets/data/logic_puzzles_it.json`  
-   - `assets/data/logic_puzzles_xx.json`  
-2. Extending `PuzzleRepository` to pick the correct file based on the app’s locale or user settings.  
-
-This makes the content layer future-proof and easy to extend without touching the UI code.
-
----
+- Add more puzzle categories
+- Expand puzzle database and improve writing consistency
+- Add local progress tracking
+- Improve settings and extra screens
+- Polish transitions and micro-interactions
+- Prepare a public Android build
 
 ## Screenshots
 
-> TODO: add 2–3 screenshots from a device or emulator once the UI is finalized.
+TODO: add screenshots once the UI is more polished.
 
-Good screenshots:
-
-- Main screen  
-- Logic & Deduction grid  
-- Puzzle detail + answer dialog  
-
----
-
-## Names
-> Names:
-- Velvet Ritual Stories
-- Ghostlight Puzzles
-- Theatre of the Damned
-- Unholy Enigma Rites
-- Altars of the Unseen
-- Omen of the Abyss
-- Litany of the Dead
-- Sigils of the Forgotten
-- Temple of Paradox
-- Enigmata Tenebrarum (Enigmas of the Darkness)
-- Noctis Aenigmata (Night's Enigmas)
-- Umbrae Mortis (Shadow of Death) *
-- Arcana Abyssi (Secrets of the Abyss) *
-- Mors Obscura (Death Obscure)
-- Nox Sacrilega (Sacrilegious Night)
-- Verba Damnatorum (Words of the Damned) *
-
----
-
-## Roadmap / Future Improvements
-
-- Add more puzzle categories (Historical, Logic vs. Intuition, etc.)  
-- Track which puzzles have already been solved and show a visual indicator  
-- Persist puzzle progress locally (e.g. SharedPreferences)  
-- Add localization (English, Italian, and more)  
-- Polish animations and micro-interactions  
-- Publish an Android build on the Play Store
-
----
+Good candidates:
+- main screen
+- category grid
+- puzzle detail view
+- answer reveal dialog
 
 ## Credits
 
-- Illustrations are based on various dark / historical themes (internal assets).
-- Fonts provided via [Google Fonts](https://fonts.google.com/).  
-- Built with [Flutter](https://docs.flutter.dev/).
-- Stories by Saturnas Costantini Miliauskas & Marina
+- Built with [Flutter](https://docs.flutter.dev/)
+- Fonts via [Google Fonts](https://fonts.google.com/)
+- Stories and concepts by Saturnas Costantini Miliauskas & Marina
