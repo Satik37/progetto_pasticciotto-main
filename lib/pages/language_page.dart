@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sushi/components/button.dart';
-import 'package:sushi/components/nav_bar.dart';
-import 'package:sushi/components/animated_background.dart';
-import 'package:sushi/l10n/app_localizations.dart';
-import 'package:sushi/services/app_locale.dart';
+import 'package:noctis_aenigmata/components/button.dart';
+import 'package:noctis_aenigmata/components/nav_bar.dart';
+import 'package:noctis_aenigmata/components/animated_background.dart';
+import 'package:noctis_aenigmata/l10n/app_localizations.dart';
+import 'package:noctis_aenigmata/services/app_locale.dart';
 
 class LanguagePage extends StatefulWidget {
   const LanguagePage({super.key});

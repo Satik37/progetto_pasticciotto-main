@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sushi/components/button.dart';
-import 'package:sushi/components/animated_background.dart';
-import 'package:sushi/l10n/app_localizations.dart';
+import 'package:noctis_aenigmata/components/button.dart';
+import 'package:noctis_aenigmata/components/animated_background.dart';
+import 'package:noctis_aenigmata/l10n/app_localizations.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
@@ -32,7 +32,7 @@ class IntroPage extends StatelessWidget {
                 // ),
                 // --- app name
                 Text(
-                  "PROGETTO PASTICCIOTTO",
+                  "noctis_aenigmata",
                   style: GoogleFonts.pirataOne(
                     fontSize: 37.sp,
                     color: const Color.fromARGB(255, 255, 255, 255),

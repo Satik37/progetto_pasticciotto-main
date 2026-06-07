@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sushi/services/puzzle_repository.dart';
+import 'package:noctis_aenigmata/services/puzzle_repository.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

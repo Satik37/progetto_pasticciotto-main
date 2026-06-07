@@ -1,4 +1,4 @@
-package com.example.sushi
+package com.example.noctis_aenigmata
 
 import io.flutter.embedding.android.FlutterActivity
 

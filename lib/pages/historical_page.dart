@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sushi/l10n/app_localizations.dart';
+import 'package:noctis_aenigmata/l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/puzzles_tile.dart';
 import '../components/animated_background.dart';

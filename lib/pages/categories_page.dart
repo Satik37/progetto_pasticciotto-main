@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sushi/components/genre_tile.dart';
-import 'package:sushi/components/animated_background.dart';
-import 'package:sushi/l10n/app_localizations.dart';
-import 'package:sushi/models/genre.dart';
-import 'package:sushi/pages/logic_page.dart';
-import 'package:sushi/pages/historical_page.dart';
+import 'package:noctis_aenigmata/components/genre_tile.dart';
+import 'package:noctis_aenigmata/components/animated_background.dart';
+import 'package:noctis_aenigmata/l10n/app_localizations.dart';
+import 'package:noctis_aenigmata/models/genre.dart';
+import 'package:noctis_aenigmata/pages/logic_page.dart';
+import 'package:noctis_aenigmata/pages/historical_page.dart';
 import '../components/nav_bar.dart';
 
 class CategoriesPage extends StatefulWidget {
@@ -131,7 +131,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 ),
               ),
               title: Text(
-                'PROGETTO PASTICCIOTTO',
+                'noctis_aenigmata',
                 style: GoogleFonts.pirataOne(
                   color: const Color.fromARGB(255, 255, 255, 255),
                   fontSize: 37.sp,

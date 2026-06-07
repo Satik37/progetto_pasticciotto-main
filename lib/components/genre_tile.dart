@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sushi/models/genre.dart';
+import 'package:noctis_aenigmata/models/genre.dart';
 
 class GenreTile extends StatelessWidget {
   final Genre genre;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sushi/l10n/app_localizations.dart';
-import 'package:sushi/services/app_locale.dart';
+import 'package:noctis_aenigmata/l10n/app_localizations.dart';
+import 'package:noctis_aenigmata/services/app_locale.dart';
 import 'pages/credits_and_support_page.dart';
 import 'pages/settings_page.dart';
 import 'pages/historical_page.dart';
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               locale: locale,
               debugShowCheckedModeBanner: false,
-              title: 'Progetto Pasticciotto',
+              title: 'noctis_aenigmata',
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
               home: const IntroPage(),

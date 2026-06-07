@@ -6,7 +6,7 @@ import '../pages/credits_and_support_page.dart';
 import '../pages/intro_page.dart';
 import '../pages/language_page.dart';
 import '../pages/settings_page.dart';
-import 'package:sushi/l10n/app_localizations.dart';
+import 'package:noctis_aenigmata/l10n/app_localizations.dart';
 
 class NavDrawer extends StatelessWidget {
   const NavDrawer({super.key});

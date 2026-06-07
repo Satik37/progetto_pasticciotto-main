@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sushi/l10n/app_localizations.dart';
+import 'package:noctis_aenigmata/l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sushi/components/puzzles_tile.dart';
-import 'package:sushi/components/animated_background.dart';
-import 'package:sushi/pages/logic_puzzles_details.dart';
-import 'package:sushi/models/puzzle.dart';
-import 'package:sushi/services/app_locale.dart';
-import 'package:sushi/services/puzzle_repository.dart';
+import 'package:noctis_aenigmata/components/puzzles_tile.dart';
+import 'package:noctis_aenigmata/components/animated_background.dart';
+import 'package:noctis_aenigmata/pages/logic_puzzles_details.dart';
+import 'package:noctis_aenigmata/models/puzzle.dart';
+import 'package:noctis_aenigmata/services/app_locale.dart';
+import 'package:noctis_aenigmata/services/puzzle_repository.dart';
 
 class LogicPage extends StatefulWidget {
   const LogicPage({super.key});

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sushi/components/animated_background.dart';
-import 'package:sushi/l10n/app_localizations.dart';
+import 'package:noctis_aenigmata/components/animated_background.dart';
+import 'package:noctis_aenigmata/l10n/app_localizations.dart';
 import '../components/nav_bar.dart';
 
 class CreditsAndSupport extends StatefulWidget {
@@ -108,7 +108,7 @@ class _CreditsAndSupportState extends State<CreditsAndSupport> {
 
               // title
               title: Text(
-                'PROGETTO PASTICCIOTTO',
+                'noctis_aenigmata',
                 style: GoogleFonts.pirataOne(
                   color: const Color.fromARGB(255, 255, 255, 255),
                   fontSize: 35.sp,

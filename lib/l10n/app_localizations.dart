@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:
-  /// **'Progetto Pasticciotto'**
+  /// **'noctis_aenigmata'**
   String get appTitle;
 
   /// No description provided for @home.
