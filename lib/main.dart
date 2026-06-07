@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               locale: locale,
               debugShowCheckedModeBanner: false,
-              title: 'noctis_aenigmata',
+              title: 'Noctis Aenigmata',
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
               home: const IntroPage(),
