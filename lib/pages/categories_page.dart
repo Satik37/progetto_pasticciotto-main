@@ -131,7 +131,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 ),
               ),
               title: Text(
-                'noctis_aenigmata',
+                'Noctis Aenigmata',
                 style: GoogleFonts.pirataOne(
                   color: const Color.fromARGB(255, 255, 255, 255),
                   fontSize: 37.sp,

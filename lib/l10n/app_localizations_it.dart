@@ -9,7 +9,7 @@ class AppLocalizationsIt extends AppLocalizations {
   AppLocalizationsIt([String locale = 'it']) : super(locale);
 
   @override
-  String get appTitle => 'noctis_aenigmata';
+  String get appTitle => 'Noctis Aenigmata';
 
   @override
   String get home => 'Home';

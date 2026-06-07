@@ -108,7 +108,7 @@ class _CreditsAndSupportState extends State<CreditsAndSupport> {
 
               // title
               title: Text(
-                'noctis_aenigmata',
+                'Noctis Aenigmata',
                 style: GoogleFonts.pirataOne(
                   color: const Color.fromARGB(255, 255, 255, 255),
                   fontSize: 35.sp,

@@ -32,7 +32,7 @@ class IntroPage extends StatelessWidget {
                 // ),
                 // --- app name
                 Text(
-                  "noctis_aenigmata",
+                  "Noctis Aenigmata",
                   style: GoogleFonts.pirataOne(
                     fontSize: 37.sp,
                     color: const Color.fromARGB(255, 255, 255, 255),
